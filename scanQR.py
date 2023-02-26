@@ -12,7 +12,6 @@ os.system(f'yt-dlp {video_url} -o "vid.webm"')
 def decoder(image):
     gray_img = cv2.cvtColor(image,0)
     barcode = decode(gray_img)
-
     for obj in barcode:
         points = obj.polygon
         (x,y,w,h) = obj.rect
