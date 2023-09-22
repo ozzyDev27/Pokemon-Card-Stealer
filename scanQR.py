@@ -9,7 +9,9 @@ for file in glob.glob("*.webm"):
     os.remove(file)
 video_url=input(">")
 os.system(f'yt-dlp {video_url} -o "vid.webm"')
-def decoder(image):
+cap=cv2.VideoCapture(glob.glob("*.webm")[0])
+while True:
+    image = cap.read()
     gray_img = cv2.cvtColor(image,0)
     barcode = decode(gray_img)
     for obj in barcode:
@@ -23,11 +25,7 @@ def decoder(image):
         barcodeType = obj.type
         string = "Data " + str(barcodeData) + " | Type " + str(barcodeType)
         
-        cv2.putText(frame, string, (x,y), cv2.FONT_HERSHEY_SIMPLEX,0.8,(255,0,0), 2)
+        #cv2.putText(frame, string, (x,y), cv2.FONT_HERSHEY_SIMPLEX,0.8,(255,0,0), 2)
         c(barcodeData,'blue')
         print("Barcode: "+barcodeData +" | Type: "+barcodeType)
         quit()
-cap=cv2.VideoCapture(glob.glob("*.webm")[0])
-while True:
-    ret, frame = cap.read()
-    decoder(frame)
